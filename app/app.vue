@@ -38,12 +38,6 @@ onMounted(() => {
 
       <template #right>
         <UColorModeButton variant="ghost" color="neutral" />
-        <UButton
-          label="Contact"
-          to="#contact"
-          size="sm"
-          class="hidden sm:flex"
-        />
       </template>
 
       <template #body>
