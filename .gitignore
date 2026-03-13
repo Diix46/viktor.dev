@@ -26,3 +26,4 @@ images_example/
 .env
 .env.*
 !.env.example
+.superpowers/
