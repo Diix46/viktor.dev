@@ -8,6 +8,7 @@ const emit = defineEmits<{
 }>()
 
 const index = ref(0)
+const paused = ref(false)
 
 function prev() {
   index.value = (index.value - 1 + props.images.length) % props.images.length
@@ -15,10 +16,21 @@ function prev() {
 function next() {
   index.value = (index.value + 1) % props.images.length
 }
+
+let timer: ReturnType<typeof setInterval>
+
+function startAutoplay() {
+  timer = setInterval(() => {
+    if (!paused.value) next()
+  }, 3000)
+}
+
+onMounted(() => startAutoplay())
+onUnmounted(() => clearInterval(timer))
 </script>
 
 <template>
-  <div class="h-44 relative overflow-hidden bg-zinc-900 group/carousel">
+  <div class="h-44 relative overflow-hidden bg-zinc-900 group/carousel" @mouseenter="paused = true" @mouseleave="paused = false">
     <!-- Images -->
     <Transition name="carousel-fade" mode="out-in">
       <img
