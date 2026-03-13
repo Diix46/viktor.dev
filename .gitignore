@@ -18,6 +18,10 @@ logs
 .fleet
 .idea
 
+# Design preview files
+preview-*.html
+images_example/
+
 # Local env files
 .env
 .env.*

@@ -73,6 +73,49 @@ function carouselNext(i: number, total: number) {
 function carouselPrev(i: number, total: number) {
   carouselIndexes[i] = ((carouselIndexes[i] ?? 0) - 1 + total) % total
 }
+
+// Lightbox
+const lightbox = reactive<{ open: boolean; src: string; alt: string; images: string[]; index: number }>({
+  open: false,
+  src: '',
+  alt: '',
+  images: [],
+  index: 0
+})
+
+function openLightbox(src: string, alt: string, images: string[] = [], index = 0) {
+  lightbox.src = src
+  lightbox.alt = alt
+  lightbox.images = images.length ? images : [src]
+  lightbox.index = index
+  lightbox.open = true
+  document.body.style.overflow = 'hidden'
+}
+
+function closeLightbox() {
+  lightbox.open = false
+  document.body.style.overflow = ''
+}
+
+function lightboxNext() {
+  lightbox.index = (lightbox.index + 1) % lightbox.images.length
+  lightbox.src = lightbox.images[lightbox.index]
+}
+
+function lightboxPrev() {
+  lightbox.index = (lightbox.index - 1 + lightbox.images.length) % lightbox.images.length
+  lightbox.src = lightbox.images[lightbox.index]
+}
+
+function onLightboxKey(e: KeyboardEvent) {
+  if (!lightbox.open) return
+  if (e.key === 'Escape') closeLightbox()
+  if (e.key === 'ArrowRight') lightboxNext()
+  if (e.key === 'ArrowLeft') lightboxPrev()
+}
+
+onMounted(() => window.addEventListener('keydown', onLightboxKey))
+onUnmounted(() => window.removeEventListener('keydown', onLightboxKey))
 </script>
 
 <template>
@@ -100,7 +143,10 @@ function carouselPrev(i: number, total: number) {
           >
             <!-- Screenshot preview -->
             <template v-if="project.preview === 'screenshot'">
-              <div class="h-44 relative overflow-hidden bg-muted">
+              <div
+                class="h-44 relative overflow-hidden bg-muted cursor-zoom-in"
+                @click="openLightbox(project.screenshotSrc!, project.name)"
+              >
                 <img
                   :src="project.screenshotSrc"
                   :alt="project.name + ' preview'"
@@ -112,7 +158,12 @@ function carouselPrev(i: number, total: number) {
                   class="absolute bottom-0 left-0 right-0 h-1/2 backdrop-blur-sm"
                   style="mask-image: linear-gradient(to bottom, transparent 0%, black 60%);"
                 />
-                <!-- Subtle top fade to blend with card -->
+                <!-- Hover hint -->
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                  <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/60 backdrop-blur-sm rounded-full p-2">
+                    <UIcon name="i-lucide-zoom-in" class="w-5 h-5 text-white" />
+                  </div>
+                </div>
                 <div class="absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-default/60 to-transparent pointer-events-none" />
               </div>
             </template>
@@ -128,7 +179,8 @@ function carouselPrev(i: number, total: number) {
                     :key="src"
                     :src="src"
                     :alt="`${project.name} ${ci + 1}`"
-                    class="absolute inset-0 w-full h-full object-cover"
+                    class="absolute inset-0 w-full h-full object-cover cursor-zoom-in"
+                    @click="openLightbox(src, `${project.name} ${ci + 1}`, project.carouselImages!, ci)"
                   />
                 </transition-group>
 
@@ -189,6 +241,71 @@ function carouselPrev(i: number, total: number) {
         </div>
       </div>
     </UContainer>
+
+    <!-- Lightbox -->
+    <Teleport to="body">
+      <Transition name="lightbox">
+        <div
+          v-if="lightbox.open"
+          class="fixed inset-0 z-[100] flex items-center justify-center"
+          @click.self="closeLightbox"
+        >
+          <!-- Backdrop -->
+          <div class="absolute inset-0 bg-black/90 backdrop-blur-md" @click="closeLightbox" />
+
+          <!-- Image container -->
+          <div class="relative z-10 flex items-center gap-4 px-4 max-w-[95vw] max-h-[95vh]">
+            <!-- Prev (multi-image) -->
+            <button
+              v-if="lightbox.images.length > 1"
+              class="flex-shrink-0 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center transition-colors"
+              @click="lightboxPrev"
+              aria-label="Précédent"
+            >
+              <UIcon name="i-lucide-chevron-left" class="w-5 h-5 text-white" />
+            </button>
+
+            <div class="relative">
+              <img
+                :src="lightbox.src"
+                :alt="lightbox.alt"
+                class="max-w-[80vw] max-h-[85vh] object-contain rounded-lg shadow-2xl"
+              />
+              <!-- Caption -->
+              <div class="absolute bottom-0 inset-x-0 text-center py-2 text-white/60 text-xs font-mono">
+                {{ lightbox.alt }}
+                <span v-if="lightbox.images.length > 1"> · {{ lightbox.index + 1 }} / {{ lightbox.images.length }}</span>
+              </div>
+            </div>
+
+            <!-- Next (multi-image) -->
+            <button
+              v-if="lightbox.images.length > 1"
+              class="flex-shrink-0 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center transition-colors"
+              @click="lightboxNext"
+              aria-label="Suivant"
+            >
+              <UIcon name="i-lucide-chevron-right" class="w-5 h-5 text-white" />
+            </button>
+          </div>
+
+          <!-- Close button -->
+          <button
+            class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center transition-colors"
+            @click="closeLightbox"
+            aria-label="Fermer"
+          >
+            <UIcon name="i-lucide-x" class="w-5 h-5 text-white" />
+          </button>
+
+          <!-- Keyboard hint -->
+          <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3 text-white/30 text-xs font-mono">
+            <span v-if="lightbox.images.length > 1">← → naviguer</span>
+            <span>Esc fermer</span>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
   </section>
 </template>
 
@@ -201,6 +318,15 @@ function carouselPrev(i: number, total: number) {
 }
 .carousel-fade-enter-from,
 .carousel-fade-leave-to {
+  opacity: 0;
+}
+
+.lightbox-enter-active,
+.lightbox-leave-active {
+  transition: opacity 0.25s ease;
+}
+.lightbox-enter-from,
+.lightbox-leave-to {
   opacity: 0;
 }
 </style>
