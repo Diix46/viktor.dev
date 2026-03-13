@@ -1,8 +1,4 @@
 <script setup lang="ts">
-const titleVisible = ref(false)
-onMounted(() => {
-  setTimeout(() => { titleVisible.value = true }, 100)
-})
 </script>
 
 <template>

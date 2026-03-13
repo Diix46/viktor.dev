@@ -66,8 +66,9 @@ onMounted(() => {
           icon="i-simple-icons-github"
           color="neutral"
           variant="ghost"
-          to="https://github.com"
+          to="https://github.com/viktor-postupak"
           target="_blank"
+          rel="noopener noreferrer"
           aria-label="GitHub"
         />
       </template>

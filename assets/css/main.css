@@ -64,10 +64,16 @@
   to { width: 100%; }
 }
 
+/* Pulse (scroll indicator) */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
 /* Border gradient card */
 .card-gradient-border {
   position: relative;
-  background: white;
+  background: transparent;
 }
 .card-gradient-border::before {
   content: '';

@@ -3,7 +3,7 @@ const links = [
   {
     label: 'GitHub',
     icon: 'i-simple-icons-github',
-    to: 'https://github.com',
+    to: 'https://github.com/viktor-postupak',
     description: '@viktor-postupak'
   },
   {
