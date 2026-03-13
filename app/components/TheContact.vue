@@ -9,7 +9,7 @@ const links = [
   {
     label: 'LinkedIn',
     icon: 'i-simple-icons-linkedin',
-    to: 'https://linkedin.com/in/viktor-postupak',
+    to: 'https://www.linkedin.com/in/viktor-postupak-b30833147/',
     description: 'Viktor Postupak'
   },
   {

@@ -58,7 +58,7 @@ onMounted(() => {
     <UFooter>
       <template #left>
         <p class="text-muted text-sm font-sans">
-          © {{ new Date().getFullYear() }} Viktor — Fait avec ☕ et trop de Docker Compose
+          © {{ new Date().getFullYear() }} Viktor — Code, containers & curiosité.
         </p>
       </template>
       <template #right>
