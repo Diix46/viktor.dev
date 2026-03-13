@@ -1,4 +1,7 @@
-<!-- pages/index.vue -->
+<script setup lang="ts">
+useReveal()
+</script>
+
 <template>
   <div>
     <TheHero />
