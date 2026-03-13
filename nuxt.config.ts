@@ -10,6 +10,10 @@ export default defineNuxtConfig({
     ]
   },
 
+  dir: {
+    public: 'app/public'
+  },
+
   nitro: {
     preset: 'static'
   },

@@ -94,12 +94,18 @@
 
 /* Skill chip tilt */
 .chip-tilt {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  transform-style: preserve-3d;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 .chip-tilt:hover {
-  transform: perspective(400px) rotateX(-8deg) translateY(-2px);
-  box-shadow: 0 8px 20px -4px var(--ui-color-primary-200);
+  transform: translateY(-2px) rotate(-1deg);
+  box-shadow: 0 6px 16px -4px var(--ui-color-primary-200);
+}
+
+/* Hide native cursor when custom cursor is active — must apply to every element */
+@media (pointer: fine) {
+  html, html * {
+    cursor: none !important;
+  }
 }
 
 /* Custom scrollbar */
