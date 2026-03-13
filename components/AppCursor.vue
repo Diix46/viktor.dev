@@ -11,6 +11,9 @@ const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia(
 onMounted(() => {
   if (isTouch) return
 
+  // Hide native cursor globally
+  document.documentElement.style.cursor = 'none'
+
   window.addEventListener('mousemove', (e) => {
     x.value = e.clientX
     y.value = e.clientY

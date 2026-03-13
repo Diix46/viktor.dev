@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero — Comparaison layouts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f5f5f7; color: #111; padding: 32px; }
+
+  h1 { font-size: 15px; font-weight: 600; color: #555; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+  .subtitle { font-size: 14px; color: #999; margin-bottom: 32px; }
+
+  .options { display: flex; flex-direction: column; gap: 24px; }
+
+  .option {
+    background: #fff;
+    border: 2px solid #eee;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .option:hover { border-color: #a78bfa; box-shadow: 0 4px 24px rgba(167,139,250,0.15); }
+  .option.selected { border-color: #7c3aed; box-shadow: 0 4px 24px rgba(124,58,237,0.2); }
+
+  .option-label {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 20px;
+    background: #fafafa;
+    border-bottom: 1px solid #eee;
+  }
+  .letter {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #111; color: #fff;
+    font-weight: 700; font-size: 13px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .option.selected .letter { background: #7c3aed; }
+  .option-label strong { font-size: 14px; }
+  .option-label span { font-size: 13px; color: #888; margin-left: 4px; }
+
+  /* ---- MOCKUPS ---- */
+  .mockup { padding: 28px 32px; }
+
+  /* A — Texte seul */
+  .hero-a { max-width: 560px; }
+  .tag-a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #a78bfa; margin-bottom: 14px; font-weight: 600; }
+  .hero-a h2 { font-size: 42px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 16px; color: #111; }
+  .hero-a h2 .accent { background: linear-gradient(135deg, #7c3aed, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero-a p { font-size: 16px; color: #555; margin-bottom: 24px; line-height: 1.6; }
+  .btn-row { display: flex; gap: 12px; }
+  .btn-p { padding: 10px 22px; background: #111; color: #fff; border-radius: 6px; font-size: 13px; font-weight: 600; }
+  .btn-s { padding: 10px 22px; border: 1px solid #ddd; color: #444; border-radius: 6px; font-size: 13px; }
+
+  /* B — Texte + Avatar */
+  .hero-b { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; }
+  .hero-b-text .tag-a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #a78bfa; margin-bottom: 14px; font-weight: 600; }
+  .hero-b-text h2 { font-size: 38px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 14px; }
+  .hero-b-text h2 .accent { background: linear-gradient(135deg, #7c3aed, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero-b-text p { font-size: 15px; color: #555; margin-bottom: 20px; line-height: 1.6; }
+  .avatar-mock { width: 140px; height: 160px; border-radius: 80px 80px 70px 70px; background: linear-gradient(160deg, #ede9fe, #dbeafe); display: flex; align-items: center; justify-content: center; font-size: 52px; flex-shrink: 0; }
+
+  /* C — Grand titre pleine largeur */
+  .hero-c { text-align: left; }
+  .hero-c .big { font-size: 58px; font-weight: 900; letter-spacing: -2.5px; line-height: 1; margin-bottom: 6px; }
+  .hero-c .big .accent { background: linear-gradient(135deg, #7c3aed, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero-c .big .outline { -webkit-text-stroke: 2px #ddd; -webkit-text-fill-color: transparent; }
+  .hero-c .sub { font-size: 17px; color: #888; margin-top: 18px; margin-bottom: 24px; font-weight: 400; max-width: 480px; }
+  .hero-c .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip { padding: 5px 14px; border-radius: 100px; font-size: 12px; font-weight: 500; border: 1px solid; }
+  .chip-v { background: rgba(124,58,237,0.07); border-color: rgba(124,58,237,0.2); color: #7c3aed; }
+  .chip-b { background: rgba(59,130,246,0.07); border-color: rgba(59,130,246,0.2); color: #3b82f6; }
+</style>
+<script>
+  function toggleSelect(el) {
+    document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    if (window.__claude_helper) window.__claude_helper.recordChoice(el.dataset.choice, el.querySelector('strong').textContent);
+  }
+</script>
+</head>
+<body>
+  <h1>Quel layout hero te parle le plus ?</h1>
+  <p class="subtitle">Clique sur celui que tu préfères</p>
+
+  <div class="options">
+
+    <div class="option" data-choice="a" onclick="toggleSelect(this)">
+      <div class="option-label">
+        <div class="letter">A</div>
+        <strong>Texte seul</strong> <span>— sobre, direct, tout l'espace pour les mots</span>
+      </div>
+      <div class="mockup">
+        <div class="hero-a">
+          <div class="tag-a">Frontend · DevOps · IA</div>
+          <h2>Développeur<br><span class="accent">frontend</span><br>& ops.</h2>
+          <p>Je construis des interfaces web performantes et j'automatise les infrastructures qui les font tourner.</p>
+          <div class="btn-row">
+            <div class="btn-p">Voir mes projets</div>
+            <div class="btn-s">Me contacter</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="option" data-choice="b" onclick="toggleSelect(this)">
+      <div class="option-label">
+        <div class="letter">B</div>
+        <strong>Texte + Avatar</strong> <span>— plus humain, équilibre visuel</span>
+      </div>
+      <div class="mockup">
+        <div class="hero-b">
+          <div class="hero-b-text">
+            <div class="tag-a">Frontend · DevOps · IA</div>
+            <h2>Développeur<br><span class="accent">frontend</span> & ops.</h2>
+            <p>Je construis des interfaces web performantes et j'automatise les infrastructures qui les font tourner.</p>
+            <div class="btn-row">
+              <div class="btn-p">Voir mes projets</div>
+              <div class="btn-s">Me contacter</div>
+            </div>
+          </div>
+          <div class="avatar-mock">🧑‍💻</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="option" data-choice="c" onclick="toggleSelect(this)">
+      <div class="option-label">
+        <div class="letter">C</div>
+        <strong>Grand titre pleine largeur</strong> <span>— impact maximal, statement fort</span>
+      </div>
+      <div class="mockup">
+        <div class="hero-c">
+          <div class="big"><span class="accent">Frontend</span></div>
+          <div class="big"><span class="outline">Developer</span></div>
+          <div class="big"><span class="accent">& Ops.</span></div>
+          <div class="sub">Je construis des interfaces web et des infras qui scalent. Passionné d'IA appliquée.</div>
+          <div class="chips">
+            <span class="chip chip-v">React · Vue · Nuxt</span>
+            <span class="chip chip-b">Docker · CI/CD · Linux</span>
+            <span class="chip chip-v">LLM · AI Tools</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

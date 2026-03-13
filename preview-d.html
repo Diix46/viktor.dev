@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D — Chaleureux & Personnel</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Georgia', 'Times New Roman', serif; background: #fdf8f3; color: #2c1a0e; line-height: 1.7; }
+
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 64px; border-bottom: 1px solid #e8d9c8; }
+  nav .logo { font-weight: 700; font-size: 20px; color: #2c1a0e; letter-spacing: -0.5px; }
+  nav ul { display: flex; gap: 32px; list-style: none; }
+  nav a { text-decoration: none; color: #7a5c44; font-family: 'Segoe UI', sans-serif; font-size: 14px; }
+  nav a:hover { color: #2c1a0e; }
+
+  .hero { display: grid; grid-template-columns: 1fr 320px; gap: 64px; padding: 80px 64px; align-items: center; }
+  .hero-text .eyebrow { font-family: 'Segoe UI', sans-serif; font-size: 13px; color: #b07d5a; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+  .hero-text h1 { font-size: 52px; font-weight: 700; letter-spacing: -2px; line-height: 1.1; margin-bottom: 24px; color: #1a0d06; }
+  .hero-text p { font-size: 18px; color: #5c3d28; line-height: 1.8; margin-bottom: 32px; }
+  .hero-text p em { font-style: italic; color: #b07d5a; }
+  .btn-warm { display: inline-block; padding: 12px 28px; background: #b07d5a; color: #fff; border-radius: 6px; text-decoration: none; font-family: 'Segoe UI', sans-serif; font-size: 14px; font-weight: 600; margin-right: 12px; }
+  .btn-link { display: inline-block; padding: 12px 0; color: #b07d5a; text-decoration: none; font-family: 'Segoe UI', sans-serif; font-size: 14px; border-bottom: 1px solid #b07d5a; }
+
+  .avatar-wrap { display: flex; justify-content: center; }
+  .avatar { width: 260px; height: 300px; background: linear-gradient(160deg, #e8d4c0, #c9a882); border-radius: 140px 140px 120px 120px; display: flex; align-items: center; justify-content: center; font-size: 80px; }
+
+  .intro-strip { background: #f0e4d5; border-top: 1px solid #e0cdb8; border-bottom: 1px solid #e0cdb8; padding: 48px 64px; }
+  .intro-strip blockquote { font-size: 22px; font-style: italic; color: #4a2e1a; max-width: 700px; line-height: 1.6; }
+  .intro-strip blockquote::before { content: '"'; font-size: 60px; color: #c9a882; line-height: 0; vertical-align: -24px; margin-right: 8px; }
+
+  .content { display: grid; grid-template-columns: 2fr 1fr; gap: 64px; padding: 64px; }
+  .posts h2 { font-size: 13px; font-family: 'Segoe UI', sans-serif; letter-spacing: 2px; text-transform: uppercase; color: #b07d5a; margin-bottom: 32px; }
+  .post { border-bottom: 1px solid #e8d9c8; padding-bottom: 28px; margin-bottom: 28px; }
+  .post .date { font-family: 'Segoe UI', sans-serif; font-size: 12px; color: #b07d5a; margin-bottom: 8px; }
+  .post h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a0d06; }
+  .post p { font-size: 15px; color: #5c3d28; }
+
+  .sidebar h2 { font-size: 13px; font-family: 'Segoe UI', sans-serif; letter-spacing: 2px; text-transform: uppercase; color: #b07d5a; margin-bottom: 24px; }
+  .skill-item { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .skill-bar-wrap { flex: 1; height: 4px; background: #e8d9c8; border-radius: 2px; }
+  .skill-bar { height: 4px; background: #b07d5a; border-radius: 2px; }
+  .skill-name { font-family: 'Segoe UI', sans-serif; font-size: 13px; color: #5c3d28; width: 80px; }
+</style>
+</head>
+<body>
+  <nav>
+    <div class="logo">Viktor</div>
+    <ul>
+      <li><a href="#">Projets</a></li>
+      <li><a href="#">À propos</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <div class="eyebrow">Frontend · DevOps · IA</div>
+      <h1>Salut, moi c'est Viktor 👋</h1>
+      <p>Je construis des interfaces web et j'automatise tout ce qui peut l'être. <em>Passionné par l'IA</em> depuis qu'elle est devenue vraiment utile.</p>
+      <a href="#" class="btn-warm">Mes projets</a>
+      <a href="#" class="btn-link">Me contacter</a>
+    </div>
+    <div class="avatar-wrap">
+      <div class="avatar">🧑‍💻</div>
+    </div>
+  </section>
+
+  <div class="intro-strip">
+    <blockquote>Je crois que la meilleure infrastructure, c'est celle qu'on n'entend pas — et les meilleures interfaces, celles qu'on oublie d'utiliser.</blockquote>
+  </div>
+
+  <div class="content">
+    <div class="posts">
+      <h2>Projets & aventures</h2>
+      <div class="post">
+        <div class="date">Infrastructure · 2024</div>
+        <h3>DiixServer — mon homelab du quotidien</h3>
+        <p>Comment j'héberge Plex, un VPN WireGuard, du monitoring et mes propres apps depuis un seul serveur chez moi.</p>
+      </div>
+      <div class="post">
+        <div class="date">Application · 2024</div>
+        <h3>GeoMind — une app full-stack de A à Z</h3>
+        <p>De l'idée au déploiement, en Nuxt.js et FastAPI. Ce que j'ai appris sur la prod en faisant vraiment tourner les choses.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <h2>Ce que je fais bien</h2>
+      <div class="skill-item">
+        <span class="skill-name">Frontend</span>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%;"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">DevOps</span>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:75%;"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">IA / LLM</span>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:70%;"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Backend</span>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:60%;"></div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

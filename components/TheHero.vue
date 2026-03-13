@@ -4,7 +4,7 @@
 <template>
   <section
     id="hero"
-    class="grain-overlay relative min-h-[92vh] flex items-center overflow-hidden"
+    class="grain-overlay relative min-h-[78vh] flex items-center overflow-hidden"
   >
     <!-- Background decoration -->
     <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
@@ -26,7 +26,7 @@
       </svg>
     </div>
 
-    <UContainer class="relative z-10 py-24">
+    <UContainer class="relative z-10 py-14">
       <div class="max-w-4xl">
         <!-- Eyebrow badges -->
         <div class="flex flex-wrap gap-2 mb-10 animate-fade-up">
